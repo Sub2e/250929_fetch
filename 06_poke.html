@@ -45,6 +45,8 @@
           shape: data.sprites.front_default,
           sound: data.cries.latest,
         });
+        localStorage.setItem("recent", JSON.stringify(poke)); // 문자열화
+        renderPoke(poke);
       }
       //   getPokemon(1);
       // 2. input 통해 번호 바꿔보기
@@ -61,6 +63,14 @@
             <audio src="${sound}" controls></audio>
         `;
       }
+
+      // 4. 직전 검색 데이터를 Storage에 저장 후 자동로딩
+      document.addEventListener("DOMContentLoaded", () => {
+        const rawRecentPoke = localStorage.getItem("recent"); // 문자열화
+        if (!rawRecentPoke) return;
+        const poke = JSON.parse(rawRecentPoke);
+        renderPoke(poke);
+      });
     </script>
   </body>
 </html>
